@@ -90,6 +90,8 @@ function updateFilterControls(context, options) {
         const filterName = elem.getAttribute('data-filter');
         elem.checked = filters.includes(`,${filterName}`);
     }
+    context.querySelector('#chkEnglishLanguage').checked = query.Tags?.includes('language_eng');
+    context.querySelector('#chkFrenchLanguage').checked = query.Tags?.includes('language_fre');
     context.querySelector('.chk3DFilter').checked = query.Is3D === true;
     context.querySelector('.chkHDFilter').checked = query.IsHD === true;
     context.querySelector('.chk4KFilter').checked = query.Is4K === true;
@@ -401,6 +403,26 @@ class FilterDialog {
                 triggerChange(this);
             }
         });
+        for (const elem of context.querySelectorAll('.chkLanguageFilter')) {
+            elem.addEventListener('change', (e) => {
+                const filterName = elem.getAttribute('data-filter');
+                let filters = query.Tags || '';
+                const delimiter = '|';
+                filters = filters
+                    .split(delimiter)
+                    .filter((f) => f !== filterName)
+                    .join(delimiter);;
+                if (elem.checked) {
+                    filters = filters ? (filters + delimiter + filterName) : filterName;
+                }
+                query.StartIndex = 0;
+                query.Tags = filters;
+                console.log(query.Tags)
+                triggerChange(this);
+                return;
+            });
+        }
+
     }
 
     show() {

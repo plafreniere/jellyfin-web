@@ -157,7 +157,8 @@ function renderItems(page, items, sectionClass, overlayButton, cardOptions) {
 
 function getTabs() {
     return [{
-        name: globalize.translate('Programs')
+        name: globalize.translate('Programs'),
+        enabled: false
     }, {
         name: globalize.translate('Guide')
     }, {
@@ -167,7 +168,8 @@ function getTabs() {
     }, {
         name: globalize.translate('Schedule')
     }, {
-        name: globalize.translate('Series')
+        name: globalize.translate('Series'),
+        enabled: false
     }];
 }
 
